@@ -22,7 +22,7 @@ def random_password():
     password_str = "".join(password_list) # Converts the combined list into a string.
 
     password_entry.insert(0, password_str) # Inserts the generated password into the password field.
-    pyperclip.copy(password_str)
+    pyperclip.copy(password_str) # Copies the password to the clipboard.
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_info():
