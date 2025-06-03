@@ -13,9 +13,9 @@ def random_password():
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
     # Generates a random password by selecting a random range of characters of letters, numbers, and symbols.
-    letters_list = [random.choice(letters) for char in range(random.randint(8,10))] # Creates a list containing between 8 & 10 letters.
-    numbers_list = [random.choice(numbers) for num in range(random.randint(2,4))] # Creates a list containing between 2 & 4 numbers.
-    symbols_list = [random.choice(symbols) for symbol in range(random.randint(2,4))] # Creates a list containing between 2 & 4 symbols.
+    letters_list = [random.choice(letters) for _ in range(random.randint(8,10))] # Creates a list containing between 8 & 10 letters.
+    numbers_list = [random.choice(numbers) for _ in range(random.randint(2,4))] # Creates a list containing between 2 & 4 numbers.
+    symbols_list = [random.choice(symbols) for _ in range(random.randint(2,4))] # Creates a list containing between 2 & 4 symbols.
 
     password_list = letters_list + numbers_list + symbols_list # Combines the 3 lists into 1.
     random.shuffle(password_list) # Shuffles the characters in the combined password list.
