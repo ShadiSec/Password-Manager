@@ -106,6 +106,5 @@ credentials_button = Button(text="View Passwords", width=36, bg="#07BD25", fg="w
 credentials_button.grid(column=1, row=5, columnspan=2, pady=15)
 
 
-
 # Keep the program running.
 window.mainloop()
