@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import pyperclip
 import json
 
@@ -22,7 +23,11 @@ class ViewPasswords:
 
         # Gets the credentials saved in the data file.
         with open(file="./data.json", mode="r") as file:
+            # try:
             data_dict = json.load(file)
+            # except json.JSONDecodeError:
+            #     data_dict = {}
+            #     messagebox.showerror(title="Oops", message="No data file found!")
 
         # Propagates the list_box with the credentials saved.
         for website in data_dict:
