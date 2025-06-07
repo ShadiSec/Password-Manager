@@ -117,11 +117,7 @@ add_button.grid(column=1, row=4, columnspan=2)
 
 # View Credentials Button
 def view_passwords():
-    try:
-        ViewPasswords()
-    except json.JSONDecodeError:
-        messagebox.showerror(title="Oops", message="No data file found!")
-
+    ViewPasswords()
 
 credentials_button = Button(text="View Passwords", width=36, command=view_passwords)
 credentials_button.grid(column=1, row=5, columnspan=2, pady=15)

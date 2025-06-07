@@ -21,19 +21,20 @@ class ViewPasswords:
 
         scroll_bar.config(command=list_box.yview)
 
-        # Gets the credentials saved in the data file.
-        with open(file="./data.json", mode="r") as file:
-            # try:
-            data_dict = json.load(file)
-            # except json.JSONDecodeError:
-            #     data_dict = {}
-            #     messagebox.showerror(title="Oops", message="No data file found!")
+        try:
+            # Gets the credentials saved in the data file.
+            with open(file="./data.json", mode="r") as file:
+                data_dict = json.load(file)
 
-        # Propagates the list_box with the credentials saved.
-        for website in data_dict:
-            email = data_dict[website]["email"]
-            password = data_dict[website]["password"]
-            list_box.insert(END, f"{website} | {email} | {password}")
+            # Propagates the list_box with the credentials saved.
+            for website in data_dict:
+                email = data_dict[website]["email"]
+                password = data_dict[website]["password"]
+                list_box.insert(END, f"{website} | {email} | {password}")
+        except FileNotFoundError:  # Handles the error when no file is found.
+            messagebox.showerror(title="Oops", message="No data file found!")
+        except json.JSONDecodeError:  # Handles the error when the data file is empty
+            data_dict = {}
 
         def copy_password():
             """Copies the password of the selected credential."""
