@@ -1,5 +1,6 @@
 from tkinter import *
 import pyperclip
+import json
 
 class ViewPasswords:
     def __init__(self):
@@ -19,13 +20,15 @@ class ViewPasswords:
 
         scroll_bar.config(command=list_box.yview)
 
-        # Gets the credentials saved in data.txt
-        with open(file="./data.txt", mode="r") as file:
-            info_list = [credential.strip("\n") for credential in file.readlines()]
+        # Gets the credentials saved in the data file.
+        with open(file="./data.json", mode="r") as file:
+            data_dict = json.load(file)
 
         # Propagates the list_box with the credentials saved.
-        for credential in info_list:
-            list_box.insert(END, f"{credential}\n")
+        for website in data_dict:
+            email = data_dict[website]["email"]
+            password = data_dict[website]["password"]
+            list_box.insert(END, f"{website} | {email} | {password}")
 
         def copy_password():
             """Copies the password of the selected credential."""

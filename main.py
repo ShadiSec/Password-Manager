@@ -3,6 +3,7 @@ from tkinter import messagebox
 from saved_passwords import ViewPasswords
 import random
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def random_password():
@@ -26,11 +27,17 @@ def random_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_info():
-    """Saves the login information to the data.txt file."""
+    """Saves the login information to the data.json file."""
     # Retrieves the text from the entry boxes.
     website = website_entry.get()
     username = username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website:{
+        "email": username,
+        "password": password
+        }
+    }
 
     # Checks for empty fields.
     if len(website) == 0 or len(username) == 0 or len(password) == 0:
@@ -42,9 +49,19 @@ def save_info():
                                                                 f"Password: {password}")
         # Checks if the user is okay with the credentials entered.
         if confirm:
-            # Appends a new line to the data file.
-            with open(file="data.txt", mode="a") as file:
-                file.write(f"{website} | {username} | {password}\n")
+            # Adds new data to the json file.
+            try:
+                with open(file="data.json", mode="r") as file:
+                    data = json.load(file)
+            except FileNotFoundError: # Will just add the data to a dictionary if the file is not found.
+                data = {}
+            except json.JSONDecodeError: # Handles an error occurring when the json file is empty.
+                data = {}
+
+            # Updates and writes the new data.
+            data.update(new_data)
+            with open(file="data.json", mode="w") as file:
+                json.dump(data, file, indent=4)
 
             # Clear the Website and Password entries from the text boxes.
             website_entry.delete(0, END)
