@@ -4,6 +4,9 @@ from saved_passwords import ViewPasswords
 import random
 import pyperclip
 import json
+from search import Search
+
+EMAIL = "CHANGE_ME@GMAIL.COM" # Set this to your frequently used email.
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def random_password():
@@ -29,7 +32,7 @@ def random_password():
 def save_info():
     """Saves the login information to the data.json file."""
     # Retrieves the text from the entry boxes.
-    website = website_entry.get()
+    website = website_entry.get().title()
     username = username_entry.get()
     password = password_entry.get()
     new_data = {
@@ -89,20 +92,25 @@ website_entry = Entry(width=35)
 website_entry.focus() # Starts the program with the cursor in the website entry.
 
 website_label.grid(column=0, row=1)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry.grid(column=1, row=1, columnspan=2, sticky="W")
+
+
+# Search Button
+search_button = Button(text="Search", command=lambda: Search(website_entry.get()))
+search_button.grid(column=2, row=1, columnspan=2, sticky="E")
 
 
 # Email/Username Label & Entry
 username_label = Label(text="Email/Username: ")
 username_entry = Entry(width=35)
-username_entry.insert(0, "example@gmail.com") # Starts the program with a commonly used email.
+username_entry.insert(0, EMAIL) # Starts the program with a commonly used email.
 username_label.grid(column=0, row=2)
-username_entry.grid(column=1, row=2, columnspan=2)
+username_entry.grid(column=1, row=2, columnspan=2, sticky="W")
 
 
 # Password Label, Entry, and Button
 password_label = Label(text="Password: ")
-password_entry = Entry(width=21)
+password_entry = Entry(width=24)
 password_button = Button(text="Generate Password", command=random_password)
 
 password_label.grid(column=0, row=3)
