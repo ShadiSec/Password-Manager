@@ -57,12 +57,17 @@ def save_info():
                 with open(file="data.json", mode="r") as file:
                     data = json.load(file)
             except FileNotFoundError: # Will just add the data to a dictionary if the file is not found.
-                data = {}
+                with open(file="data.json", mode="w") as file:
+                    json.dump(new_data, file, indent=4)
+
+                with open(file="data.json", mode="r") as file:
+                    data = json.load(file)
             except json.JSONDecodeError: # Handles an error occurring when the json file is empty.
                 data = {}
+            else:
+                # Updates and writes the new data.
+                data.update(new_data)
 
-            # Updates and writes the new data.
-            data.update(new_data)
             with open(file="data.json", mode="w") as file:
                 json.dump(data, file, indent=4)
 
